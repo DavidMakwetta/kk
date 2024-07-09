@@ -1,11 +1,36 @@
 package server;
 
+import java.io.IOException;
+import java.net.*;
+
 public class Server {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // define server default port
 
-        // start server
-        // accept incoming connection and create a thread 
-        // start a thread for continous 
+        int port = 80808;
+
+        try (// start server
+                ServerSocket socket = new ServerSocket(port)) {
+
+            System.out.println("Listening for connections");
+
+            while (true) {
+                Socket sock = socket.accept();
+
+                System.out.println("New client conection");
+
+                ServerThread serverThread = new ServerThread(sock);
+                serverThread.start();
+
+            }
+            // accept incoming connection and create a thread
+
+            // start a thread for continous
+
+            // accept client connection
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
